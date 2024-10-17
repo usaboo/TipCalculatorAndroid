@@ -1,5 +1,6 @@
 package com.usaboo.tipcalculator
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,8 @@ import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import android.animation.ArgbEvaluator
 
 private const val TAG = "MainActivity"
 private const val initialTipPercent = 15
@@ -94,5 +97,10 @@ class MainActivity : AppCompatActivity() {
             else -> "Amazing"
         }
         tvTipDescription.text = tipDescription
+        val color = ArgbEvaluator().evaluate(
+            tipPercent.toFloat() /seekBarTip.max,
+             R.color.worst_tip, R.color.best_tip) as Int
+
+        tvTipDescription.setTextColor(color)
     }
 }
